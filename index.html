@@ -5,6 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adventour</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .slider-container {
+            position: relative;
+            width: 620px; /* 2 cards (300px each) + 20px margin between */
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .card-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+
+        .card {
+            min-width: 300px; /* Fixed width */
+            height: 400px; /* Fixed height */
+            margin: 10px;
+            position: relative;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transition: transform 0.6s;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front {
+            background: #fff;
+            z-index: 2;
+        }
+
+        .card-back {
+            background: #f9f9f9;
+            transform: rotateY(180deg);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card.flipped .card-front {
+            transform: rotateY(180deg);
+        }
+
+        .card.flipped .card-back {
+            transform: rotateY(0deg);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px; /* Fixed image height */
+            object-fit: cover;
+        }
+
+        .card h3 {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .card-back p {
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .left-btn {
+            left: 0;
+        }
+
+        .right-btn {
+            right: 0;
+        }
+    </style>
+    </style>
 </head>
 <body>
     <!-- Login Page -->
@@ -38,7 +129,7 @@
                 <p>Adventures are open only to those who are willing to take risks.</p>
             </div>
             <div class="slider-container">
-                <button class="slider-btn left-btn" onclick="moveSlide(-1)">&#10094;</button>
+                <button class="slider-btn left-btn" onclick="moveSlide(-1)">❮</button>
                 <div class="card-slider">
                     <div class="card" onclick="flipCard(this)">
                         <div class="card-front">
@@ -60,8 +151,38 @@
                             <p>A UNESCO World Heritage site with ancient ruins and adventurous rock climbing spots.</p>
                         </div>
                     </div>
+                    <div class="card" onclick="flipCard(this)">
+                        <div class="card-front">
+                            <img src="https://via.placeholder.com/300x200?text=Ladakh" alt="Ladakh">
+                            <h3>Ladakh</h3>
+                        </div>
+                        <div class="card-back">
+                            <h3>Ladakh</h3>
+                            <p>A high-altitude desert with rugged terrains, perfect for biking and trekking adventures.</p>
+                        </div>
+                    </div>
+                    <div class="card" onclick="flipCard(this)">
+                        <div class="card-front">
+                            <img src="https://via.placeholder.com/300x200?text=Rishikesh" alt="Rishikesh">
+                            <h3>Rishikesh</h3>
+                        </div>
+                        <div class="card-back">
+                            <h3>Rishikesh</h3>
+                            <p>The adventure capital of India, famous for white-water rafting and yoga retreats.</p>
+                        </div>
+                    </div>
+                    <div class="card" onclick="flipCard(this)">
+                        <div class="card-front">
+                            <img src="https://via.placeholder.com/300x200?text=Manali" alt="Manali">
+                            <h3>Manali</h3>
+                        </div>
+                        <div class="card-back">
+                            <h3>Manali</h3>
+                            <p>A Himalayan gem offering skiing, paragliding, and scenic mountain trails.</p>
+                        </div>
+                    </div>
                 </div>
-                <button class="slider-btn right-btn" onclick="moveSlide(1)">&#10095;</button>
+                <button class="slider-btn right-btn" onclick="moveSlide(1)">❯</button>
             </div>
         </div>
     </div>
