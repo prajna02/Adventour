@@ -7,134 +7,122 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         .slider-container {
-    position: relative;
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-}
-.card:hover {
-    transform: scale(1.05);
-}
-
-.card-front img {
-    width: 100%;
-    height: 70%;
-    object-fit: cover;
-}
-
-.card-front h3 {
-    color: #1e3c72;
-    text-align: center;
-    padding: 20px;
-}
-
-.card-back h3 {
-    color: #1e3c72;
-    margin-bottom: 10px;
-}
-
-.card-back p {
-    color: #333;
-    font-size: 16px;
-}
-
-.card.flipped .card-front {
-    transform: rotateY(-180deg);
-}
-
-.card.flipped .card-back {
-    transform: rotateY(0deg);
-}
-.card-slider {
-    display: flex;
-    gap: 20px;
-    transition: transform 0.5s ease-in-out;
-    will-change: transform;
-    white-space: nowrap;
-    width: max-content; /* Ensures all cards are in a single row */
-}
-
-.card {
-    flex: 0 0 300px; /* Fixed width for each card */
-    height: 400px;
-    position: relative;
-    perspective: 1000px;
-    cursor: pointer;
-}
-
-.card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    transition: transform 0.6s;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.card-front {
-    background: #fff;
-    z-index: 2;
-}
-
-.card-back {
-    background: #ffd700;
-    transform: rotateY(180deg);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-.slider-btn:hover {
-    background: rgba(255, 255, 255, 0.4);
-}
-
-.card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.card h3 {
-    text-align: center;
-    margin: 10px 0;
-}
-
-.card-back p {
-    font-size: 14px;
-    text-align: center;
-}
-
-.slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 20px;
-    z-index: 10;
-}
-
-.left-btn {
-    left: 0;
-}
-
-.right-btn {
-    right: 0;
-}
-
-    </style>
+            position: relative;
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card-front img {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+        }
+        .card-front h3 {
+            color: #1e3c72;
+            text-align: center;
+            padding: 20px;
+        }
+        .card-back h3 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+        .card-back p {
+            color: #333;
+            font-size: 16px;
+        }
+        .card.flipped .card-front {
+            transform: rotateY(-180deg);
+        }
+        .card.flipped .card-back {
+            transform: rotateY(0deg);
+        }
+        .card-slider {
+            display: flex;
+            gap: 20px;
+            transition: transform 0.5s ease-in-out;
+            will-change: transform;
+            white-space: nowrap;
+            width: max-content; /* Ensures all cards are in a single row */
+        }
+        .card {
+            flex: 0 0 300px; /* Fixed width for each card */
+            height: 400px;
+            position: relative;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transition: transform 0.6s;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .card-front {
+            background: #fff;
+            z-index: 2;
+        }
+        .card-back {
+            background: #ffd700;
+            transform: rotateY(180deg);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .slider-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card h3 {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .card-back p {
+            font-size: 14px;
+            text-align: center;
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 10;
+        }
+        .left-btn {
+            left: 0;
+        }
+        .right-btn {
+            right: 0;
+        }
     </style>
 </head>
 <body>
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = "login.html"; // Redirect to login if not logged in
+        }
+    </script>
+    
     <!-- Login Page -->
     <div id="login-page" class="login-container">
         <div class="login-box">
@@ -151,16 +139,16 @@
         <nav class="navbar">
             <div class="logo">Adventour</div>
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#" id="login-logout" onclick="logout()">Login</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#" id="login-logout" onclick="logout()">Logout</a></li>
             </ul>
         </nav>
 
         <!-- Main Content -->
-        <div class="hero-section">
+        <div id="home" class="hero-section">
             <div class="hero-text">
                 <h1>Adventure Awaits</h1>
                 <p>Adventures are open only to those who are willing to take risks.</p>
@@ -218,6 +206,77 @@
                             <p>A Himalayan gem offering skiing, paragliding, and scenic mountain trails.</p>
                         </div>
                     </div>
+                    <!-- Additional Places -->
+                    <div class="card" onclick="flipCard(this)">
+                        <div class="card-front">
+                            <img src="https://via.placeholder.com/300x200?text=Mysore" alt="Mysore">
+                            <h3>Mysore</h3>
+                        </div>
+                        <div class="card-back">
+                            <h3>Mysore</h3>
+                            <p>Known for its royal heritage and magnificent palaces, Mysore is a cultural hub.</p>
+                        </div>
+                    </div>
+                    <div class="card" onclick="flipCard(this)">
+                        <div class="card-front">
+                            <img src="https://via.placeholder.com/300x200?text=Chikmagalur" alt="Chikmagalur">
+                            <h3>Chikmagalur</h3>
+                        </div>
+                        <div class="card-back">
+                            <h3>Chikmagalur</h3>
+                            <p>Famous for its coffee plantations and serene landscapes, perfect for a peaceful retreat.</p>
+                        </div>
+                    </div>
+                    <div class="card" onclick="flipCard(this)">
+                        <div class="card-front">
+                            <img src="https://via.placeholder.com/300x200?text=Gokarna" alt="Gokarna">
+                            <h3>Gokarna</h3>
+                        </div>
+                        <div class="card-back">
+                            <h3>Gokarna</h3>
+                            <p>A small temple town with beautiful beaches and a laid-back vibe.</p>
+                        </div>
+                    </div>
+                    <div class="card" onclick="flipCard(this)">
+                        <div class="card-front">
+                            <img src="https://via.placeholder.com/300x200?text=Badami" alt="Badami">
+                            <h3>Badami</h3>
+                        </div>
+                        <div class="card-back">
+                            <h3>Badami</h3>
+                            <p>Known for its rock-cut temples and stunning sandstone cliffs.</p>
+                        </div>
+                    </div>
+                    <div class="card" onclick="flipCard(this)">
+                        <div class="card-front">
+                            <img src="https://via.placeholder.com/300x200?text=Bandipur" alt="Bandipur">
+                            <h3>Bandipur</h3>
+                        </div>
+                        <div class="card-back">
+                            <h3>Bandipur</h3>
+                            <p>A wildlife sanctuary offering safaris and a chance to see tigers and elephants.</p>
+                        </div>
+                    </div>
+                    <div class="card" onclick="flipCard(this)">
+                        <div class="card-front">
+                            <img src="https://via.placeholder.com/300x200?text=Jog Falls" alt="Jog Falls">
+                            <h3>Jog Falls</h3>
+                        </div>
+                        <div class="card-back">
+                            <h3>Jog Falls</h3>
+                            <p>One of the highest waterfalls in India, offering breathtaking views.</p>
+                        </div>
+                    </div>
+                    <div class="card" onclick="flipCard(this)">
+                        <div class="card-front">
+                            <img src="https://via.placeholder.com/300x200?text=Kabini" alt="Kabini">
+                            <h3>Kabini</h3>
+                        </div>
+                        <div class="card-back">
+                            <h3>Kabini</h3>
+                            <p>A popular wildlife destination with lush forests and a beautiful river.</p>
+                        </div>
+                    </div>
                 </div>
                 <button class="slider-btn right-btn" onclick="moveSlide(1)">❯</button>
             </div>
@@ -225,5 +284,11 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = "login.html"; 
+        }
+    </script>
 </body>
 </html>
