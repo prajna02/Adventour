@@ -7,93 +7,130 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         .slider-container {
-            position: relative;
-            width: 80%;
-            margin: 0 auto;
-            overflow: hidden;
-        }
+    position: relative;
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+.card:hover {
+    transform: scale(1.05);
+}
 
-        .card-slider {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            width: 100%;
-        }
+.card-front img {
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+}
 
-        .card {
-            min-width: 300px; /* Fixed width to prevent shrinking */
-            height: 400px; /* Fixed height */
-            margin: 10px;
-            position: relative;
-            perspective: 1000px;
-            cursor: pointer;
-        }
+.card-front h3 {
+    color: #1e3c72;
+    text-align: center;
+    padding: 20px;
+}
 
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            transition: transform 0.6s;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+.card-back h3 {
+    color: #1e3c72;
+    margin-bottom: 10px;
+}
 
-        .card-front {
-            background: #fff;
-            z-index: 2;
-        }
+.card-back p {
+    color: #333;
+    font-size: 16px;
+}
 
-        .card-back {
-            background: #f9f9f9;
-            transform: rotateY(180deg);
-            padding: 20px;
-            box-sizing: border-box;
-        }
+.card.flipped .card-front {
+    transform: rotateY(-180deg);
+}
 
-        .card.flipped .card-front {
-            transform: rotateY(180deg);
-        }
+.card.flipped .card-back {
+    transform: rotateY(0deg);
+}
+.card-slider {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+    white-space: nowrap;
+    width: max-content; /* Ensures all cards are in a single row */
+}
 
-        .card.flipped .card-back {
-            transform: rotateY(0deg);
-        }
+.card {
+    flex: 0 0 300px; /* Fixed width for each card */
+    height: 400px;
+    position: relative;
+    perspective: 1000px;
+    cursor: pointer;
+}
 
-        .card img {
-            width: 100%;
-            height: 200px; /* Fixed image height */
-            object-fit: cover;
-        }
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transition: transform 0.6s;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-        .card h3 {
-            text-align: center;
-            margin: 10px 0;
-        }
+.card-front {
+    background: #fff;
+    z-index: 2;
+}
 
-        .card-back p {
-            font-size: 14px;
-            text-align: center;
-        }
+.card-back {
+    background: #ffd700;
+    transform: rotateY(180deg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.slider-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
 
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 20px;
-        }
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
 
-        .left-btn {
-            left: 0;
-        }
+.card h3 {
+    text-align: center;
+    margin: 10px 0;
+}
 
-        .right-btn {
-            right: 0;
-        }
+.card-back p {
+    font-size: 14px;
+    text-align: center;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 10;
+}
+
+.left-btn {
+    left: 0;
+}
+
+.right-btn {
+    right: 0;
+}
+
     </style>
     </style>
 </head>

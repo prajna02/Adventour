@@ -31,11 +31,34 @@ function flipCard(card) {
 function moveSlide(direction) {
     const slider = document.querySelector('.card-slider');
     const cards = document.querySelectorAll('.card');
-    const cardWidth = cards[0].offsetWidth + 20; // Including gap
+    const cardWidth = cards[0].offsetWidth + 20; // Adjust for margins
+    const visibleCards = Math.floor(slider.offsetWidth / cardWidth); // Number of visible cards
 
     currentSlide += direction;
-    if (currentSlide < 0) currentSlide = 0;
-    if (currentSlide > cards.length - 2) currentSlide = cards.length - 2;
+
+    // Ensure looping effect for a smooth experience
+    if (currentSlide < 0) {
+        currentSlide = cards.length - visibleCards; 
+    } else if (currentSlide > cards.length - visibleCards) {
+        currentSlide = 0;
+    }
 
     slider.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
 }
+const slider = document.querySelector(".card-slider");
+const prevBtn = document.querySelector(".left-btn");
+const nextBtn = document.querySelector(".right-btn");
+
+let scrollAmount = 0;
+const cardWidth = 300 + 20; // Adjust according to your gap
+
+nextBtn.addEventListener("click", () => {
+    scrollAmount += cardWidth;
+    slider.style.transform = `translateX(-${scrollAmount}px)`;
+});
+
+prevBtn.addEventListener("click", () => {
+    scrollAmount -= cardWidth;
+    if (scrollAmount < 0) scrollAmount = 0; // Prevents over-scrolling
+    slider.style.transform = `translateX(-${scrollAmount}px)`;
+});
