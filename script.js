@@ -31,7 +31,7 @@ function flipCard(card) {
 function moveSlide(direction) {
     const slider = document.querySelector('.card-slider');
     const cards = document.querySelectorAll('.card');
-    const cardWidth = cards[0].offsetWidth + 20; // Including gap
+    const cardWidth = cards[0].offsetWidth + 20;
 
     currentSlide += direction;
     if (currentSlide < 0) currentSlide = 0;
@@ -39,3 +39,33 @@ function moveSlide(direction) {
 
     slider.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
 }
+
+document.querySelectorAll('.nav-links a').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const target = this.getAttribute('href');
+        if (target.startsWith("#")) {
+            e.preventDefault();
+            const targetId = target.substring(1);
+            document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+
+const slider = document.querySelector(".card-slider");
+const prevBtn = document.querySelector(".left-btn");
+const nextBtn = document.querySelector(".right-btn");
+
+let scrollAmount = 0;
+const cardWidth = 300 + 20; 
+
+nextBtn.addEventListener("click", () => {
+    scrollAmount += cardWidth;
+    slider.style.transform = `translateX(-${scrollAmount}px)`;
+});
+
+prevBtn.addEventListener("click", () => {
+    scrollAmount -= cardWidth;
+    if (scrollAmount < 0) scrollAmount = 0;
+    slider.style.transform = `translateX(-${scrollAmount}px)`;
+});
