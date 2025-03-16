@@ -18,10 +18,10 @@
             transform: scale(1.05);
         }
         .card-front img {
-            width: 100%;
-            height: 70%;
-            object-fit: cover;
-        }
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
         .card-front h3 {
             color: #1e3c72;
             text-align: center;
@@ -32,15 +32,17 @@
             margin-bottom: 10px;
         }
         .card-back p {
-            color: #333;
-            font-size: 16px;
-        }
+    color: #333;
+    font-size: 14px;
+    padding: 0 10px; /* Ensure text fits and is readable */
+    margin: 10px 0;
+}
         .card.flipped .card-front {
-            transform: rotateY(-180deg);
-        }
-        .card.flipped .card-back {
-            transform: rotateY(0deg);
-        }
+    transform: rotateY(180deg);
+}
+.card.flipped .card-back {
+    transform: rotateY(0deg);
+}
         .card-slider {
             display: flex;
             gap: 20px;
@@ -50,36 +52,39 @@
             width: max-content;
         }
         .card {
-            flex: 0 0 300px;
-            height: 400px;
-            position: relative;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            transition: transform 0.6s;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .card-front {
-            background: #fff;
-            z-index: 2;
-        }
-        .card-back {
-            background: #ffd700;
-            transform: rotateY(180deg);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+    flex: 0 0 300px;
+    height: 400px;
+    position: relative;
+    perspective: 1000px;
+    cursor: pointer;
+}
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transition: transform 0.6s;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.card-front {
+    background: #fff;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.card-back {
+    background: #ffd700;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
         .slider-btn:hover {
             background: rgba(255, 255, 255, 0.4);
         }
@@ -96,6 +101,7 @@
             font-size: 14px;
             text-align: center;
         }
+        
         .slider-btn {
             position: absolute;
             top: 50%;
@@ -114,16 +120,102 @@
         .right-btn {
             right: 0;
         }
+        .modal {
+        display: none;
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        overflow: auto; /* Page scrolls if modal exceeds viewport */
+    }
+    .modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 30px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 1050px; /* Still 50% bigger than original */
+        /* Removed max-height and overflow-y to allow expansion */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .close:hover {
+        color: #000;
+    }
+    .modal-details {
+        padding: 30px;
+    }
+    .modal-details img {
+    width: 100%;
+    max-height: 250px;
+    max-width: 700px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+    .modal-details h2 {
+        color: #1e3c72;
+        margin: 20px 0;
+        font-size: 2em;
+    }
+    .modal-details p {
+        color: #333;
+        line-height: 1.8;
+        font-size: 1.1em;
+    }
     </style>
 </head>
 <body>
+    <!-- Existing login check script -->
     <script>
-        if (localStorage.getItem('isLoggedIn') !== 'true') {
-            window.location.href = "login.html";
+        const loginPage = document.getElementById('login-page');
+        const mainPage = document.getElementById('main-page');
+
+        function checkLoginStatus() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                loginPage.style.display = 'none';
+                mainPage.style.display = 'block';
+            } else {
+                loginPage.style.display = 'block';
+                mainPage.style.display = 'none';
+            }
         }
+
+        // Run on page load
+        checkLoginStatus();
+
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            // Add validation if needed (e.g., check email/password)
+            if (email && password) {
+                localStorage.setItem('isLoggedIn', 'true');
+                checkLoginStatus(); // Update visibility
+            } else {
+                alert('Please enter both email and password.');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            checkLoginStatus(); // Update visibility
+        }
+        // if (localStorage.getItem('isLoggedIn') !== 'true') {
+        //     window.location.href = "login.html";
+        // }
+
     </script>
     
-    <!-- Login Page -->
+    <!-- Login Page (unchanged) -->
     <div id="login-page" class="login-container">
         <div class="login-box">
             <h2>Adventour Login</h2>
@@ -135,7 +227,7 @@
 
     <!-- Main Page -->
     <div id="main-page" class="main-container" style="display: none;">
-        <!-- Navbar -->
+        <!-- Navbar (unchanged) -->
         <nav class="navbar">
             <div class="logo">Adventour</div>
             <ul class="nav-links">
@@ -147,7 +239,7 @@
             </ul>
         </nav>
 
-        <!-- Main Content -->
+        <!-- Main Content with Modal -->
         <div id="home" class="hero-section">
             <div class="hero-text">
                 <h1>Adventure Awaits</h1>
@@ -156,139 +248,229 @@
             <div class="slider-container">
                 <button class="slider-btn left-btn" onclick="moveSlide(-1)">❮</button>
                 <div class="card-slider">
-                    <div class="card" onclick="flipCard(this)">
+                    <div class="card" data-place="Coorg" data-img="coorg.png">
                         <div class="card-front">
-                            <img src="https://via.placeholder.com/300x200?text=Coorg" alt="Coorg">
+                            <img src="coorg.png" alt="Coorg">
                             <h3>Coorg</h3>
                         </div>
                         <div class="card-back">
                             <h3>Coorg</h3>
-                            <p>Known as the "Scotland of India," Coorg offers lush hills, coffee plantations, and thrilling treks.</p>
+                            <p>Often referred to as the Scotland of India, Coorg is one of the best hill stations in South India and best Tourist Places in Karnataka. Enchanting hills, deep valleys, and aromatic coffee & tea plantations have made this coffee county a very popular place to enjoy vacations as part of Coorg Tour Packages, whether you are alone, with family, with friends, or with your better half. This quaint hill station of Karnataka acts as a pleasant escape from the hot and humid climate of the region.
+                                Blessed with lush green meadows and wonderful waterfalls, visitng Coorg tourist places can be complete experience for nature lovers. If you want to soak in the bountiful nature of Coorg, book your Coorg Holiday Packages with Trawell.in. Our packages are crafted by travel experts to cater to various travelers who love trekking, sightseeing that revolves around visiting the best attractions like temples, waterfalls, and famous viewpoints and wildlife.
+                            </p>
                         </div>
                     </div>
-                    <div class="card" onclick="flipCard(this)">
+                    <div class="card" data-place="chikamaglur" data-img="chikamaglur.png">
                         <div class="card-front">
-                            <img src="https://via.placeholder.com/300x200?text=Hampi" alt="Hampi">
-                            <h3>Hampi</h3>
+                            <img src="chikamaglur.png" alt="Hampi">
+                            <h3>Chikamaglur</h3>
                         </div>
                         <div class="card-back">
-                            <h3>Hampi</h3>
-                            <p>A UNESCO World Heritage site with ancient ruins and adventurous rock climbing spots.</p>
+                            <h3>Chikamaglur</h3>
+                            <p>Chikamaglur is situated at the foothills of Mulliyangiri range, Chikmagalur is one of the best hill stations in Karnataka and also one of the most famous tourist places near Bangalore. Chickmagalur is the starting point of the mighty Western Ghats and also the Yagachi River is originated from the surrounding hills of the ghats.
+
+                                Chikmagalur is famous for its serene environment, lush green forests, beautiful waterfalls, tall mountains and coffee estates. Pleasant gusts of wind, light rainfall, and chilly winters are just an added bonus. Baba Budangiri, Hirekolale Lake, Mulliyangiri, Ayyanakere Lake, Manikyadhara Falls, Horanadu, and Kemmanagundi are among the popular places to visit in Chikmagalur. Chikkamagaluru is also famous for coffee and is known as the Coffee Land of Karnataka. It is the place where coffee was cultivated for the first time in India.
+                                
+                                Trawell.in offers the widest range of customizable Chikmagalur Packages for all vacations whether it be a family trip, or with your friends. We offer end-to-end services like luxurious and comfortable accommodation, transportation, and customized sightseeing tours at affordable rates. So without much agitation, pack your bags and head to Chikmagalur for an ultimate holiday experience. Typically, 3 days is required to explore the best Chikmagalur Tour Packages. Whether you want to witness the enchanting charm of Western Ghats or cherish some quality time amid nature, the resorts in Chikmagalur let you have it all.
+                                </p>
                         </div>
                     </div>
-                    <div class="card" onclick="flipCard(this)">
+                    <div class="card" data-place="kemmanagundi" data-img="kemmanagundi.png">
                         <div class="card-front">
-                            <img src="https://via.placeholder.com/300x200?text=Ladakh" alt="Ladakh">
-                            <h3>Ladakh</h3>
+                            <img src="kemmanagundi.png" alt="Ladakh">
+                            <h3>Kemmanagundi</h3>
                         </div>
                         <div class="card-back">
-                            <h3>Ladakh</h3>
-                            <p>A high-altitude desert with rugged terrains, perfect for biking and trekking adventures.</p>
+                            <h3>Kemmanagundi</h3>
+                            <p>Kemmanagundi is a picturesque hill station in Karnataka and among the popular tourist places in Karnataka. Often called as KR Hills, the region is covered with plantations of coffee and tea along with thick bamboo groves forming a dense forest cover. Typically, 2 days is required to explore best Kemmanagundi tour packages. Kemmangundi is a beautiful hill station with breathtaking views of the valleys amidst mountain streams and lush vegetation. Raj Bhavan, Z point, Rock garden, Hebbe Falls, Kalhattagiri Falls, Baba Budan Hill and Bhadra Tiger Reserve are the popular places to visit in Kemmangundi. Kemmangundi is popular among tourists for trekking routes, mountain trails and other adventure activities.
+
+                                Chikmagalur, Belur, Halebidu, Mangalore & Mysore are also close to Chikmagalur and 4-5 day trips can be planned to visit Kemmanagundi along with these places.
+                                </p>
                         </div>
                     </div>
-                    <div class="card" onclick="flipCard(this)">
+                    <!-- Add similar data attributes to remaining cards -->
+                    <div class="card" data-place="sakaleshpur" data-img="sakaleshpur.png">
                         <div class="card-front">
-                            <img src="https://via.placeholder.com/300x200?text=Rishikesh" alt="Rishikesh">
-                            <h3>Rishikesh</h3>
+                            <img src="sakaleshpur.png" alt="Rishikesh">
+                            <h3>Sakaleshpur</h3>
                         </div>
                         <div class="card-back">
-                            <h3>Rishikesh</h3>
-                            <p>The adventure capital of India, famous for white-water rafting and yoga retreats.</p>
+                            <h3>Sakaleshpur</h3>
+                            <p>Sakleshpur or Sakleshpura is a hill station in the Hassan district of Karnataka. Situated at an altitude of 3061 feet, it is one of the best hill stations in Karnataka, and among the must include tourist attractions in Karnataka Tour Packages. Lies in the Malnad region, Sakleshpura is the gateway to the Western Ghats from Bengaluru & Hassan side. Besides, the town is surrounded by lofty green hills covered with coffee, cardamom, pepper, and areca plantations. Manjarabad Fort, Sakleshwara Temple, Agni Gudda Hill, Magajahalli Waterfalls, Betta Byraveshwara Temple, Hemavathi Dam, Pandavar Gudda, and Agni Gudda are some of the popular places to visit in Sakleshpur.
+
+                                Belur, Chikmagalur, Mangalore, Mysore, and Bangalore are also close to Sringeri and 4-5 day trips can be planned to visit Sakleshpur along with these places.
+                                </p>
                         </div>
                     </div>
-                    <div class="card" onclick="flipCard(this)">
+                    <div class="card" data-place="sirsi" data-img="sirsi.png">
                         <div class="card-front">
-                            <img src="https://via.placeholder.com/300x200?text=Manali" alt="Manali">
-                            <h3>Manali</h3>
+                            <img src="sirsi.png" alt="Rishikesh">
+                            <h3>Sirsi</h3>
                         </div>
                         <div class="card-back">
-                            <h3>Manali</h3>
-                            <p>A Himalayan gem offering skiing, paragliding, and scenic mountain trails.</p>
+                            <h3>Sirsi</h3>
+                            <p>Sirsi is a small hill station located in the Uttara Kannada district of Karnataka. It is the main commercial center and a business hub in the Malnadu region, and among the must include places in Karnataka tour packages. Also known as 'Gateway of Malenadu' or 'Gateway of Western Ghats', this beautiful hill town is a popular weekend destination amongst locals. Unchalli Falls, Vibhuthi Falls, Marikamba Temple, Sri Mahaganapathi Temple, Magod Falls, Benne Hole Falls, Shivaganga Falls, Muregar Falls, Burude Falls, Mattighatta Falls, Manjuguni, Sahashralinga, Sodhe / Sonda, Devimane Ghat, Banavasi, and Gudavi Bird Sanctuary are some of the important places to visit in Sirsi. Sirsi provides ample opportunities to trek on the many hills and mountains that surround the town. Sri Marikamba Jatra is the main festival held every alternate year in March at Sirsi.
+
+                                Hubli, Karwar, Goa, Gokarna and Dandeli are also close to Sirsi and 2-3 day trips can be planned to visit Sirsi along with these places.</p>
                         </div>
                     </div>
-                    <!-- Additional Places -->
-                    <div class="card" onclick="flipCard(this)">
+                    <div class="card" data-place="dandeli" data-img="dandeli.png">
                         <div class="card-front">
-                            <img src="https://via.placeholder.com/300x200?text=Mysore" alt="Mysore">
-                            <h3>Mysore</h3>
+                            <img src="dandeli.png" alt="Rishikesh">
+                            <h3>Dandeli</h3>
                         </div>
                         <div class="card-back">
-                            <h3>Mysore</h3>
-                            <p>Known for its royal heritage and magnificent palaces, Mysore is a cultural hub.</p>
+                            <h3>Dandeli</h3>
+                            <p>At a distance of 55 km from Dharwad, 73 km from Hubli, 89 km from Belgaum, 106 km from Karwar, 130 km from Panjim, 240 km from Shimoga, and 462 km from Bangalore, Dandeli is a picturesque town on the banks of the River Kali in Uttara Kannada district of Karnataka. It is one of the top places to visit near Hubli, and among the must include places in Karnataka tour packages.
+
+                                Dandeli is quite famous for its gorgeous natural backdrop, wildlife, and adventure activities. It has a dense forest cover and is one of the best natural habitats in the world. Dandeli Wildlife Sanctuary is the second largest wildlife sanctuary in Karnataka. The sanctuary is crisscrossed by River Kaneri and River Nagajhari, tributaries of River Kali. The sanctuary is the natural habitat for several wildlife species such as tigers, leopards, black panthers, elephants, gaur, and languor. It can be visited along with Goa packages.
+                                
+                                Dandeli is one of the top white-water rafting destinations in India. Kayaking, canyoning, water rafting, overnight rafting, or canoeing trips on the Kali River along with other adventure sports like cycling and mountain biking are some of the things one can indulge in here as part of Dandeli holiday packages. Dandeli also offers crocodile spotting, nature walks, treks, boating, bird watching, and angling trips. Ulavi Temple, Syntheri Rocks, Kavala Caves, Molangi, Syke's Point, Nagajhari Viewpoint, and Supa Dam are other tourist places in Dandeli.
+                                </p>
                         </div>
                     </div>
-                    <div class="card" onclick="flipCard(this)">
+                    <div class="card" data-place="nandi" data-img="nandi.png">
                         <div class="card-front">
-                            <img src="https://via.placeholder.com/300x200?text=Chikmagalur" alt="Chikmagalur">
-                            <h3>Chikmagalur</h3>
+                            <img src="nandi.png" alt="Rishikesh">
+                            <h3>Nandi Hills</h3>
                         </div>
                         <div class="card-back">
-                            <h3>Chikmagalur</h3>
-                            <p>Famous for its coffee plantations and serene landscapes, perfect for a peaceful retreat.</p>
+                            <h3>Nandi Hills</h3>
+                            <p>At a distance of 60 Kms from Bangalore (situated close to NH207 towards Chik Ballapur), Nandi Hills or Nandidurga is a popular trekkig destination near Bangalore. Located close to Skandagiri, it is one of the must visit places for trekking enthusiasts as part of Bangalore tour packages and among the popular one day trip from Bangalore.
+
+                                It gets its name from the ancient Nandi or bull which is meant to be the mount of Lord Shiva. These hills are the source of the rivers Palar, Arkavati and Pennar. It was one of the Tipu's summer retreats. There are about 1,200 steps laid from foot of the hill to reach the top. Bhoga Nandishwara Temple situated at the foot of the hills is a must see place which houses a 1000 year old sculpture of Nandi.
+                                
+                                Tipu Sultan's Summer Palace and Tipu's Drop, a 600 ft cliff from where Tipu Sultan used to throw his prisoners, offers a spectacular view of the valley. Amrita Sarovar Lake, ruins of Tipu Sultan's fort are other places to visit. There are also three temples dedicated to Sri Ugra Narasimha, Sri Yoga Narasimha and Sri Bhoga Narasimha.
+                                </p>
                         </div>
                     </div>
-                    <div class="card" onclick="flipCard(this)">
+                    <div class="card" data-place="agumbe" data-img="agumbe.png">
                         <div class="card-front">
-                            <img src="https://via.placeholder.com/300x200?text=Gokarna" alt="Gokarna">
-                            <h3>Gokarna</h3>
+                            <img src="agumbe.png" alt="Rishikesh">
+                            <h3>Agumbe</h3>
                         </div>
                         <div class="card-back">
-                            <h3>Gokarna</h3>
-                            <p>A small temple town with beautiful beaches and a laid-back vibe.</p>
+                            <h3>Agumbe</h3>
+                            <p>At a distance of 26 km from Sringeri, 31 km from Thirthahalli, 55 km from Udupi, 62 km from Kundapura, 77 km from Kudremukh, 94 km from Shimoga, 112 km from Mangalore, 342 km from Bangalore, Agumbe is a small hill town located in the Shimoga district of Karnataka, India. Nestled in the thickly forested Malnadu region of the Western Ghats, it is one of the most mesmerizing offbeat hill stations in Karnataka, and among the most famous places to visit near Mangalore.
+
+                                Situated at an altitude of over 2100 feet, the scenic village of Agumbe lies in the Western Ghats belt with some of the last remaining lowland rainforests. The place is nicknamed 'The Cherrapunji of the South' as it receives the heaviest rainfall in the southern part which makes it a perfect home to some of the scenic waterfalls, dense forests, and rivers. It is also called Hasiru Honnu means green gold as it is home to several rare species of medicinal plants. It can be visited as part of Mangalore tour packages.
+                                
+                                Agumbe is associated with rainforest conservation efforts, documentation of medicinal plants, tourism, and the promotion of cottage industry. Agumbe hosts the first automatic weather station in India, founded by Romulus Whitaker in 1943. The village is also home to the Agumbe Rainforest Research Station, an only rainforest research station in India, and was established as a sanctuary for King Cobra, Agumbe's flagship species. Interestingly, Agumbe is also called the 'Cobra Capital' because of the high number of Cobras found here. It is also the place where RK Narayan has filmed his novel Malgudi Days.
+                                </p>
                         </div>
                     </div>
-                    <div class="card" onclick="flipCard(this)">
+                    <div class="card" data-place="kudremukh" data-img="kudremukh.png">
                         <div class="card-front">
-                            <img src="https://via.placeholder.com/300x200?text=Badami" alt="Badami">
-                            <h3>Badami</h3>
+                            <img src="kudremukh.png" alt="Rishikesh">
+                            <h3>Kudremukh</h3>
                         </div>
                         <div class="card-back">
-                            <h3>Badami</h3>
-                            <p>Known for its rock-cut temples and stunning sandstone cliffs.</p>
+                            <h3>Kudremukh</h3>
+                            <p>At a distance of 67 Kms from Sringeri, 90 Kms from Chikmagalur and 26 Kms from Kudremukh Town, Kudremukh is one of the best trekking destinations in Karnataka. At an altitude of 1894m, it is one of the highest peaks of Western Ghats and among the top destinations for trekking in Karnataka.
+
+                                Permission from RFO at Kudremukh town is necessary to do this trek. The trekking is performed inside the national park and camping is not allowed in specific seasons (check with RFO before planning the trek). Though there are several routes to trek Kudremukh peak, the Samse - Mullodi route is quite famous. Mullodi is 12 Kms from Kudremukh via Samse and can be reached by Jeep from Kudremukh. Though Mullodi is starting point of the trek, some people trek from Samse, which is 4 Kms before Mullodi.
+                                
+                                The peak is about 14 Kms from Mullodi village and takes about 5 Hrs to trek. Incase the camping is not allowed on the peak, you will need to start early & return to Mullodi by evening (total 8-9 hrs trek) and stay at Mullodi (home stays available).
+                                </p>
                         </div>
                     </div>
-                    <div class="card" onclick="flipCard(this)">
+                    <div class="card" data-place="kodachadri" data-img="kodachadri.png">
                         <div class="card-front">
-                            <img src="https://via.placeholder.com/300x200?text=Bandipur" alt="Bandipur">
-                            <h3>Bandipur</h3>
+                            <img src="kodachadri.png" alt="Rishikesh">
+                            <h3>Kodachadri</h3>
                         </div>
                         <div class="card-back">
-                            <h3>Bandipur</h3>
-                            <p>A wildlife sanctuary offering safaris and a chance to see tigers and elephants.</p>
+                            <h3>Kodachadri</h3>
+                            <p>At a distance of 75 Kms from Murudeshwar, 90 Kms from Udupi, 110 Kms from Shimoga & 20 Kms from Kollur, Kodachadri is a mountain peak in the Western Ghats situated at an altitude of 1343m. Kodachadri is a wonderful place for trekking and is among the top destinations for trekking in Karnataka. It is believed that Shankaracharya did meditation on this hill and there is a 'Sarvajna Peetha' located on top of the hill.
+
+                                There are several routes to trek these wonderful hills. Famous route starts from Nagodi village situated on Kollur - Nagara route. The trek duration is about 5 hrs on this route (one way). Trekking via Hidlumane Falls is a magnificent experience, though it's bit difficult & long route (via Nagara, Nittur & Marakutuka). There is also a Jeep route via Sampekatte which needs only 3 Kms trek to reach the top, after the Jeep ride.
+                                </p>
                         </div>
                     </div>
-                    <div class="card" onclick="flipCard(this)">
+                    <div class="card" data-place="kavikal" data-img="kavikal.png">
                         <div class="card-front">
-                            <img src="https://via.placeholder.com/300x200?text=Jog Falls" alt="Jog Falls">
-                            <h3>Jog Falls</h3>
+                            <img src="kavikal.png" alt="Rishikesh">
+                            <h3>Kavikal Gandi Viewpoint</h3>
                         </div>
                         <div class="card-back">
-                            <h3>Jog Falls</h3>
-                            <p>One of the highest waterfalls in India, offering breathtaking views.</p>
+                            <h3>Kavikal Gandi Viewpoint</h3>
+                            <p>At a distance of 11 km from Baba Budangiri, 11 km from Mullayanagiri and 18 km from Chikmagalur, Kavikal Gandi, also known as Horse Shoe Viewpoint, is a popular viewpoint in Chikmagalur district of Karnataka.
+
+                                Located on Mullayanagiri - Baba Budangiri road, Kavikal Gandi is a prominent hill viewpoint in Chikmagalur region. There is a check post on the road. The horse shoe viewpoint can be easily reached by climbing up about 50 steps from this check post.
+                                
+                                There is a small idol of Hanuman at the foot of the hill. Atop the hill, someone has recently drawn a painting of Swami Vivekananda. This hill is always windy and pleasant. From the viewpoint one can get a breathtaking view of Chandra Drona mountain range.
+                                </p>
                         </div>
                     </div>
-                    <div class="card" onclick="flipCard(this)">
+                    <div class="card" data-place="gatikallu" data-img="gatikallu.png">
                         <div class="card-front">
-                            <img src="https://via.placeholder.com/300x200?text=Kabini" alt="Kabini">
-                            <h3>Kabini</h3>
+                            <img src="gatikallu.png" alt="Rishikesh">
+                            <h3>Gatikallu Viewpoint</h3>
                         </div>
                         <div class="card-back">
-                            <h3>Kabini</h3>
-                            <p>A popular wildlife destination with lush forests and a beautiful river.</p>
+                            <h3>Gatikallu Viewpoint</h3>
+                            <p>At a distance of 4 km from Durgadahalli, 7 km from Sunkasale, 24 km from Kottigehara, 41 km from Mudigere, and 70 km from Chikmagalur, Gatikallu Viewpoint is a stunning vantage point situated at Durgadahalli village in Karnataka. Located near Ballalarayanadurga Fort, it is one of the best places to visit near Chikmagalurfor nature lovers and trekking enthusiasts.
+
+                                Nestled in the lap of Western Ghats, Ghatikallu is a 600 feet 'one rock mountain' with the most stunning view of the valley below. There are many myths about this 'one rock mountain' when heard will only kindle the nostalgic feeling of being one with history. From this viewpoint, one can get a panoramic view of the surrounding peaks, grasslands, valleys, thick jungle, Ballarayan Durga, and Rani Jhari Viewpoint. This place is a perfect getaway from all the hustles and bustles of routine city life.
+                                
+                                Gatikallu Viewpoint can only be reached by trekking through the dense vegetation from Durgadahalli village. The trail starts from Kalabhairaveshwara Temple at Durgadahalli, which is around 41 km from Mudigere. The 4 km trekking route from the temple to the initial forest section (from where the actual trek starts) is on a moderately steep mud road. Jeeps and other SUVs can go all the way up to the start point covering a distance of 1 km else just park your vehicle at the temple and start trekking from there. It is a moderate trek and takes about 30 minutes to reach the vantage point from the temple.
+                                </p>
                         </div>
                     </div>
                 </div>
                 <button class="slider-btn right-btn" onclick="moveSlide(1)">❯</button>
             </div>
         </div>
-    </div>
+        <div id="adventureModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">×</span>
+                <div class="modal-details" id="modalDetails">
+                </div>
+            </div>
+        </div>
 
     <script src="script.js"></script>
     <script>
         function logout() {
             localStorage.removeItem('isLoggedIn');
-            window.location.href = "login.html"; 
+            window.location.href = "index.html"; 
         }
+
+        // New modal functions
+        const modal = document.getElementById('adventureModal');
+    const modalDetails = document.getElementById('modalDetails');
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const place = this.getAttribute('data-place');
+            const img = this.getAttribute('data-img');
+            const descElement = this.querySelector('.card-back p'); // Get the <p> content
+            const desc = descElement ? descElement.textContent : ''; // Fallback if no <p>
+
+            modalDetails.innerHTML = `
+                <img src="${img}" alt="${place}">
+                <h2>${place}</h2>
+                <p>${desc}</p>
+            `;
+            
+            modal.style.display = 'block';
+        });
+    });
+
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
+Added flipCard(): Toggles the .flipped class to rotate the card and show .card-back.
+Update
     </script>
 </body>
 </html>
